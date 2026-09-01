@@ -1,0 +1,5 @@
+{
+  "nvidia":{
+    "baseUrl":"https://integrate.api.nvidia.com/v1"
+  }
+}
