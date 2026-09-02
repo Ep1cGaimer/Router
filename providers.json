@@ -1,5 +1,8 @@
 {
   "nvidia":{
     "baseUrl":"https://integrate.api.nvidia.com/v1"
+  },
+  "tokenrouter":{
+    "baseUrl":"https://api.tokenrouter.com/v1"
   }
 }

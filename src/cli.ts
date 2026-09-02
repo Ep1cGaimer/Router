@@ -1,13 +1,10 @@
 import * as p from "@clack/prompts";
 import config from "../providers.json";
-import { chatCompletion, fetchAllModels } from "./providers";
+import { chatCompletion, fetchModels } from "./providers";
 
 p.intro("Shivam Kumar Routing Service");
 
 const spinner = p.spinner();
-spinner.start("Shivam kumar is fethcing your models....");
-const models = await fetchAllModels();
-spinner.stop("Shivam Kumar has found the models!");
 
 const provider = await p.select({
   message: "Select a provider, Shivam Kumar will fetch it for you:",
@@ -16,10 +13,15 @@ const provider = await p.select({
 
 if (p.isCancel(provider)) { p.outro("Cancelled"); process.exit(0); }
 
+spinner.start("Shivam kumar is fethcing your models....");
+const models = await fetchModels(provider as string)
+spinner.stop("Shivam Kumar has found the models!");
+
 const model = await p.select({
   message: "Select a model, Shivam Kumar will fetch it for you:",
   options: models.map((m: any) => ({ label: m.id, value: m.id })),
-});
+})
+
 if (p.isCancel(model)) { p.outro("Cancelled"); process.exit(0); }
 
 const messages: { role: string, content: string }[] = [];
