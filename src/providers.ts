@@ -9,7 +9,7 @@ function getProvider(name: string){
   if(!key) throw new Error(`Missing API key for ${name}`);
   return{ baseUrl: provider.baseUrl, apiKey: key };
 }
-export async function fetchModels(name: string){
+export async function fetchModels(name: string) {
   const {baseUrl,apiKey} = getProvider(name);
   const res = await fetch(`${baseUrl}/models`, {
     headers: {
@@ -17,9 +17,13 @@ export async function fetchModels(name: string){
     }
   });
   const data = await res.json();
-  return data;
+  return data.data;
 }
-
+export async function fetchAllModels() {
+  const providers = Object.keys(config);
+  const allModels = await Promise.all(providers.map(fetchModels));
+  return allModels.flat();
+}
 export async function chatCompletion(name: string, body: any){
   const {baseUrl, apiKey} = getProvider(name);
   const res = await fetch(`${baseUrl}/chat/completions`, {
