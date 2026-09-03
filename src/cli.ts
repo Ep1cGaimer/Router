@@ -34,7 +34,7 @@ while (true) {
   spinner.start("Shivam Kumar is thinking...");
   const response = await chatCompletion(provider, { model, messages });
   spinner.stop("Shivam Kumar has finished thinking!");
-  const reply = response.choices[0].message.content;
+  const reply = response.data.choices[0].message.content;
   messages.push({ role: "assistant", content: reply });
   p.log.message(`Shivam Kumar: ${reply}`);
 }
